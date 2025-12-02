@@ -1,4 +1,3 @@
-// Core types for the LLM service
 export interface LLMMessage {
   role: 'user' | 'assistant' | 'system'
   content: string
@@ -28,7 +27,6 @@ export interface LLMProvider {
   embed?(text: string): Promise<number[][]>
 }
 
-// Main service class
 export class LLMService {
   constructor(private provider: LLMProvider) {}
 
