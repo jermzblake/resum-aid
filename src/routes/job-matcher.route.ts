@@ -15,4 +15,9 @@ export const registerJobMatchRoute = (app: Hono, controller: JobMatcherControlle
     // Otherwise return the full layout (for direct navigation)
     return c.html(MainLayout(jobMatcherHtml, 'matcher'))
   })
+
+  app.post('/api/match', async (c) => {
+    console.log('Received /api/match request')
+    return await controller.matchJob(c)
+  })
 }
