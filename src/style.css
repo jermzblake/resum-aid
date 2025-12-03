@@ -1,1 +1,39 @@
 @import 'tailwindcss';
+
+/* enables bullets with sane spacing */
+.list-default {
+  list-style-type: disc;
+  list-style-position: outside;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+/* keeps bullets but reduces spacing */
+.list-tight {
+  list-style-type: disc;
+  list-style-position: outside;
+  padding-left: 1rem;
+}
+
+/* opt-in content scope restoring bullets */
+.prose ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  padding-left: 1.25rem;
+}
+
+.prose ul.strengths li::marker {
+  content: '💪🏾';
+}
+
+.prose ul.gaps li::marker {
+  content: '❌';
+}
+
+.prose ul.recommendations li::marker {
+  content: '🚀';
+}
+
+.prose ul.skills li::marker {
+  content: '🛠️';
+}
