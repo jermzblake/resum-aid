@@ -7,6 +7,7 @@ export const registerBulletAnalyzerRoute = (app: Hono) => {
     const bulletAnalyzerHtml = await BulletAnalyzerView()
     // If it's an HTMX request, return just the content
     if (c.req.header('HX-Request')) {
+      c.header('HX-Trigger', JSON.stringify({ setActiveTab: 'analyzer' }))
       return c.html(bulletAnalyzerHtml)
     }
 

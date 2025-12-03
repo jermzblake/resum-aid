@@ -7,6 +7,7 @@ export const registerResumeBuilderRoute = (app: Hono) => {
     const resumeBuilderHtml = await ResumeBuilderView()
     // If it's an HTMX request, return just the content
     if (c.req.header('HX-Request')) {
+      c.header('HX-Trigger', JSON.stringify({ setActiveTab: 'builder' }))
       return c.html(resumeBuilderHtml)
     }
 
