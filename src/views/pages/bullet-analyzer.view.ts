@@ -11,6 +11,7 @@ export const BulletAnalyzerView = () => html`
         hx-post="/api/analyze-bullets"
         hx-target="#analysis-result"
         hx-indicator="#loading-analysis"
+        hx-swap="innerHTML"
         class="space-y-6"
       >
         <div>

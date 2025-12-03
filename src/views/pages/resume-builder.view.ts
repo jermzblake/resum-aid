@@ -7,7 +7,13 @@ export const ResumeBuilderView = () => html`
       <h2 class="text-2xl font-bold text-gray-900 mb-2">Resume Builder</h2>
       <p class="text-gray-600 mb-6">Let's create your professional resume step by step</p>
 
-      <form hx-post="/api/resume/generate" hx-target="#result" hx-indicator="#loading-result" class="space-y-6">
+      <form
+        hx-post="/api/resume/generate"
+        hx-target="#result"
+        hx-swap="innerHTML"
+        hx-indicator="#loading-result"
+        class="space-y-6"
+      >
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
           <input

@@ -10,6 +10,7 @@ export const JobMatcherView = () => html`
       <form
         hx-post="/api/match"
         hx-target="#match-result"
+        hx-swap="innerHTML"
         hx-indicator="#loading-match"
         hx-encoding="multipart/form-data"
         class="space-y-6"
