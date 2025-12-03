@@ -1,7 +1,39 @@
 {
   "compilerOptions": {
-    "strict": true,
+    // Environment setup & latest features
+    "lib": ["ESNext", "DOM"],
+    "target": "ESNext",
+    "module": "Preserve",
+    "moduleDetection": "force",
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
-  }
+    "jsxImportSource": "hono/jsx",
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Some stricter flags (disabled by default)
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "build.ts",
+    "bun-env.d.ts",
+    "src/server/db/migrations/**/*",
+    "src/server/db/seeds/**/*",
+    "src/server/db/index.ts",
+    "*.config.mjs",
+    "*.config.js"
+  ]
 }
