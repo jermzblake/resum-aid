@@ -1,4 +1,4 @@
-import type { LLMProvider, LLMChatRequest, LLMChatResponse } from '../services/llm-service'
+import type { LLMProvider, LLMChatRequest, LLMChatResponse } from '../services/llm/llm.service'
 import axios from 'axios'
 
 export class OpenAIProvider implements LLMProvider {

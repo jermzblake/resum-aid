@@ -1,5 +1,5 @@
 import ollama from 'ollama'
-import type { LLMProvider, LLMChatRequest, LLMChatResponse } from '../services/llm-service'
+import type { LLMProvider, LLMChatRequest, LLMChatResponse } from '../services/llm/llm.service'
 
 export class OllamaProvider implements LLMProvider {
   constructor(private model: string = process.env.OLLAMA_MODEL || 'gpt-oss:120b-cloud') {}

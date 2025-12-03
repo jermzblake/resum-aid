@@ -1,4 +1,4 @@
-import { LLMService } from '../services/llm-service'
+import { LLMService } from '../services/llm/llm.service'
 import { OllamaProvider } from './ollama-provider'
 import { OpenAIProvider } from './openai-provider'
 
