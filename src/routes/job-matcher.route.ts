@@ -17,7 +17,6 @@ export const registerJobMatchRoute = (app: Hono, controller: JobMatcherControlle
   })
 
   app.post('/api/match', async (c) => {
-    console.log('Received /api/match request')
     return await controller.matchJob(c)
   })
 }
