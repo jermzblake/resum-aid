@@ -16,7 +16,7 @@ export const MainLayout = (content: string, activeTab: string = 'home') => html`
         <!-- Header -->
         <header class="bg-white shadow-sm border-b border-gray-200">
           <div class="px-6 py-4">
-            <h1 class="text-2xl font-bold text-gray-900">Resume Helper</h1>
+            <h1 class="text-2xl font-bold text-gray-900"><a href="/">Resum-Aid</a></h1>
           </div>
 
           <!-- Navigation Tabs -->
