@@ -27,7 +27,9 @@ export const MainLayout = (content: string, activeTab: string = 'home') => html`
         <main id="tool-content" class="p-6">${content}</main>
       </div>
     </body>
+
     <script>
+      <!-- HTMX: Update active tab on navigation -->
       document.addEventListener('htmx:afterOnLoad', (e) => {
         const trigger = e.detail.xhr.getResponseHeader('HX-Trigger')
         if (!trigger) return
@@ -56,6 +58,17 @@ export const MainLayout = (content: string, activeTab: string = 'home') => html`
             a.classList.add('text-blue-600', 'border-b-2', 'border-blue-600', 'bg-blue-50')
           } else {
             a.classList.add('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-50')
+          }
+        })
+      })
+
+      <!-- Configure HTMX to swap error responses into targets -->
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.addEventListener('htmx:beforeSwap', (e) => {
+          // Allow swapping for error status codes (4xx, 5xx)
+          if (e.detail.xhr.status >= 400) {
+            e.detail.shouldSwap = true
+            e.detail.isError = false
           }
         })
       })
