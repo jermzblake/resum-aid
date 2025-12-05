@@ -62,6 +62,19 @@ export class LLMService {
     return response.content
   }
 
+  // Helper method for streaming prompts
+  async promptStream(prompt: string, systemPrompt?: string): Promise<AsyncGenerator<string, void, unknown>> {
+    const messages: LLMMessage[] = []
+
+    if (systemPrompt) {
+      messages.push({ role: 'system', content: systemPrompt })
+    }
+
+    messages.push({ role: 'user', content: prompt })
+
+    return await this.chatStream({ messages, stream: true })
+  }
+
   // Switch provider at runtime if needed
   setProvider(provider: LLMProvider): void {
     this.provider = provider
