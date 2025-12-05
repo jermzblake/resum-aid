@@ -15,13 +15,6 @@ export const LandingView = () => html`
         '/tools/job-matcher',
         '🎯',
       )}
-      <!-- Resume Builder Card -->
-      ${ToolComponent(
-        'Resume Builder',
-        'Create a professional resume tailored to your job applications with ease.',
-        '/tools/resume-builder',
-        '📝',
-      )}
 
       <!-- Bullet Analyzer Card -->
       ${ToolComponent(
@@ -29,6 +22,14 @@ export const LandingView = () => html`
         'Analyze and optimize your resume bullet points for maximum impact.',
         '/tools/bullet-analyzer',
         '✨',
+      )}
+
+      <!-- Resume Builder Card -->
+      ${ToolComponent(
+        'Resume Builder',
+        'Create a professional resume tailored to your job applications with ease.',
+        '/tools/resume-builder',
+        '📝',
       )}
     </div>
   </div>

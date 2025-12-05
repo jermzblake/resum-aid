@@ -21,7 +21,7 @@ const NavLink = (href: string, label: string, icon: string, active: boolean) => 
 export const NavigationComponent = (activeTab: string) => html`
   <nav class="px-6 flex gap-1 border-t border-gray-100">
     ${NavLink('/tools/job-matcher', 'Job Matcher', '🎯', activeTab === 'matcher')}
-    ${NavLink('/tools/resume-builder', 'Resume Builder', '📝', activeTab === 'builder')}
     ${NavLink('/tools/bullet-analyzer', 'Bullet Analyzer', '✨', activeTab === 'analyzer')}
+    ${NavLink('/tools/resume-builder', 'Resume Builder', '📝', activeTab === 'builder')}
   </nav>
 `
