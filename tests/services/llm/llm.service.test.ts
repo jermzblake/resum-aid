@@ -183,6 +183,171 @@ describe('LLMService', () => {
     })
   })
 
+  describe('promptStream', () => {
+    it('should stream a prompt without system message', async () => {
+      async function* mockStream() {
+        yield 'Hello'
+        yield ' '
+        yield 'from'
+        yield ' '
+        yield 'stream'
+      }
+
+      mockProvider.chatStream = mock(() => mockStream())
+
+      const userPrompt = 'Test prompt'
+      const stream = await llmService.promptStream(userPrompt)
+
+      const chunks: string[] = []
+      for await (const chunk of stream) {
+        chunks.push(chunk)
+      }
+
+      expect(chunks).toEqual(['Hello', ' ', 'from', ' ', 'stream'])
+      expect(mockProvider.chatStream).toHaveBeenCalledTimes(1)
+
+      const callArgs = (mockProvider.chatStream as any).mock.calls[0][0]
+      expect(callArgs.messages).toBeArrayOfSize(1)
+      expect(callArgs.messages[0]).toEqual({ role: 'user', content: userPrompt })
+      expect(callArgs.stream).toBe(true)
+    })
+
+    it('should include system message when provided', async () => {
+      async function* mockStream() {
+        yield 'Response'
+        yield ' '
+        yield 'text'
+      }
+
+      mockProvider.chatStream = mock(() => mockStream())
+
+      const userPrompt = 'Hello'
+      const systemPrompt = 'You are a helpful assistant'
+      const stream = await llmService.promptStream(userPrompt, systemPrompt)
+
+      const chunks: string[] = []
+      for await (const chunk of stream) {
+        chunks.push(chunk)
+      }
+
+      expect(chunks).toEqual(['Response', ' ', 'text'])
+      expect(mockProvider.chatStream).toHaveBeenCalledTimes(1)
+
+      const callArgs = (mockProvider.chatStream as any).mock.calls[0][0]
+      expect(callArgs.messages).toBeArrayOfSize(2)
+      expect(callArgs.messages[0]).toEqual({ role: 'system', content: systemPrompt })
+      expect(callArgs.messages[1]).toEqual({ role: 'user', content: userPrompt })
+      expect(callArgs.stream).toBe(true)
+    })
+
+    it('should throw error if streaming not supported', async () => {
+      const providerWithoutStream: LLMProvider = {
+        chat: mock(async () => mockChatResponse),
+      }
+
+      llmService = new LLMService(providerWithoutStream)
+
+      await expect(llmService.promptStream('Test')).rejects.toThrow('Streaming not supported by this provider')
+    })
+
+    it('should handle empty prompt', async () => {
+      async function* mockStream() {
+        yield 'Response'
+      }
+
+      mockProvider.chatStream = mock(() => mockStream())
+
+      const stream = await llmService.promptStream('')
+
+      const chunks: string[] = []
+      for await (const chunk of stream) {
+        chunks.push(chunk)
+      }
+
+      expect(chunks).toBeArrayOfSize(1)
+      expect(mockProvider.chatStream).toHaveBeenCalled()
+    })
+
+    it('should handle streaming errors', async () => {
+      async function* errorStream() {
+        yield 'Start'
+        throw new Error('Stream error occurred')
+      }
+
+      mockProvider.chatStream = mock(() => errorStream())
+
+      const stream = await llmService.promptStream('Test')
+
+      await expect(async () => {
+        for await (const chunk of stream) {
+          // Will throw when error occurs
+        }
+      }).toThrow('Stream error occurred')
+    })
+
+    it('should handle long prompts', async () => {
+      async function* mockStream() {
+        yield 'OK'
+      }
+
+      mockProvider.chatStream = mock(() => mockStream())
+
+      const longPrompt = 'A'.repeat(5000)
+      const systemPrompt = 'System instructions'
+
+      const stream = await llmService.promptStream(longPrompt, systemPrompt)
+
+      const chunks: string[] = []
+      for await (const chunk of stream) {
+        chunks.push(chunk)
+      }
+
+      expect(chunks).toEqual(['OK'])
+      expect(mockProvider.chatStream).toHaveBeenCalled()
+
+      const callArgs = (mockProvider.chatStream as any).mock.calls[0][0]
+      expect(callArgs.messages[1].content).toBe(longPrompt)
+    })
+
+    it('should stream JSON responses', async () => {
+      async function* mockStream() {
+        yield '{"key":'
+        yield ' '
+        yield '"value"'
+        yield '}'
+      }
+
+      mockProvider.chatStream = mock(() => mockStream())
+
+      const stream = await llmService.promptStream('Generate JSON')
+
+      const chunks: string[] = []
+      for await (const chunk of stream) {
+        chunks.push(chunk)
+      }
+
+      const fullResponse = chunks.join('')
+      expect(fullResponse).toBe('{"key": "value"}')
+    })
+
+    it('should handle empty stream', async () => {
+      async function* mockStream() {
+        // Empty generator
+      }
+
+      mockProvider.chatStream = mock(() => mockStream())
+
+      const stream = await llmService.promptStream('Test')
+
+      const chunks: string[] = []
+      for await (const chunk of stream) {
+        chunks.push(chunk)
+      }
+
+      expect(chunks).toBeArrayOfSize(0)
+    })
+  })
+
   describe('prompt', () => {
     it('should make a simple prompt without system message', async () => {
       const userPrompt = 'What is the capital of France?'
