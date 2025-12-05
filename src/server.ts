@@ -9,6 +9,8 @@ import type { LLMService } from '@/services/llm/llm.service'
 import { LLMTaskService } from '@/services/llm/llm.task.service'
 import { JobMatcherController } from '@/controllers/job-matcher.controller'
 import { JobMatcherService } from '@/services/job-matcher-service'
+import { BulletAnalyzerController } from '@/controllers/bullet-analyzer.controller'
+import { BulletAnalyzerService } from '@/services/bullet-analyzer.service'
 
 export const createApp = () => {
   const app = new Hono()
@@ -19,13 +21,15 @@ export const createApp = () => {
   const llmService: LLMService = LLMFactory.createOllama()
   const llmTaskService = new LLMTaskService(llmService)
   const jobMatcherService = new JobMatcherService(llmTaskService)
+  const bulletAnalyzerService = new BulletAnalyzerService(llmTaskService)
 
   const jobMatcherController = new JobMatcherController(jobMatcherService)
+  const bulletAnalyzerController = new BulletAnalyzerController(bulletAnalyzerService)
 
   // Mount routes
   registerLandingRoute(app)
   registerJobMatchRoute(app, jobMatcherController)
-  registerBulletAnalyzerRoute(app)
+  registerBulletAnalyzerRoute(app, bulletAnalyzerController)
   registerResumeBuilderRoute(app)
 
   return app
