@@ -10,6 +10,7 @@ export const MainLayout = (content: string, activeTab: string = 'home') => html`
       <title>Resume Helper</title>
       <link href="/style.css" rel="stylesheet" />
       <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+      <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/sse.js"></script>
     </head>
     <body class="bg-gray-50 min-h-screen">
       <div class="max-w-6xl mx-auto">
