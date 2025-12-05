@@ -41,7 +41,6 @@ export class BulletAnalyzerController {
   async streamAnalysis(ctx: Context) {
     const queryBullet = ctx.req.query('bullet') || ''
     const bullet = decodeURIComponent(queryBullet)
-    console.log('Streaming analysis for bullet:', bullet)
     if (!bullet || bullet.trim().length === 0) {
       return ctx.html(
         `<div class="error">Bullet point cannot be empty. Please provide a valid bullet point.</div>`,
