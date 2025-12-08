@@ -52,8 +52,9 @@ export const ResumeUploadView = () => html`
         class="space-y-6"
       >
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Select Resume File</label>
+          <label for="resume-file" class="block text-sm font-medium text-gray-700 mb-2">Select Resume File</label>
           <input
+            id="resume-file"
             type="file"
             name="resume"
             accept=".pdf,.docx"
@@ -83,8 +84,9 @@ export const ResumeUploadView = () => html`
         hx-encode="json"
       >
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Paste Your Resume</label>
+          <label for="resume-text" class="block text-sm font-medium text-gray-700 mb-2">Paste Your Resume</label>
           <textarea
+            id="resume-text"
             name="text"
             rows="12"
             required
