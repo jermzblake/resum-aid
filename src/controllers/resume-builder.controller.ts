@@ -166,9 +166,19 @@ export class ResumeBuilderController {
           try {
             await stream.writeSSE({ event: 'ping', data: '💓' })
           } catch (_) {
-            // Ignore transient write errors
+            // If the heartbeat write fails, stop scheduling further pings
+            alive = false
+            clearInterval(heartbeat)
           }
         }, 5000)
+
+        // Tie cleanup to client disconnects as an extra safeguard
+        const abortSignal = (ctx.req as any)?.raw?.signal as AbortSignal | undefined
+        const abortCleanup = () => {
+          alive = false
+          clearInterval(heartbeat)
+        }
+        abortSignal?.addEventListener('abort', abortCleanup, { once: true })
         try {
           // Step 1: Parse resume text
           await stream.writeSSE({
@@ -225,6 +235,7 @@ export class ResumeBuilderController {
           // Stop heartbeat
           alive = false
           clearInterval(heartbeat)
+          abortSignal?.removeEventListener('abort', abortCleanup)
         }
       })
     } catch (error) {
