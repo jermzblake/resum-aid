@@ -199,7 +199,7 @@ export const ResumePreviewDataView = (resume: ParsedResume) => {
             banner.className = 'mt-4 p-3 bg-green-50 border border-green-200 text-green-800 rounded'
             banner.setAttribute('role', 'status')
             banner.textContent = 'Downloaded successfully. To make changes or download again, restart the builder.'
-            const container = document.querySelector('.bg-white.rounded-lg.shadow-sm.border.border-gray-200.p-8')
+            const container = document.getElementById('resume-preview')?.parentElement
             container?.appendChild(banner)
           })
           .catch((error) => {
