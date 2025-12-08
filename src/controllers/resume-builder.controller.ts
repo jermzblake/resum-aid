@@ -7,6 +7,7 @@ import { ErrorComponent } from '@/views/components/error.component'
 import { ParseLoaderFragment } from '@/views/fragments/parse-loader.fragment'
 import { ResumePreviewDataView } from '@/views/pages/resume-preview-data.view'
 import { randomUUID } from 'crypto'
+import { createEmptyResume } from '@/utils/resume'
 
 /**
  * Simple in-memory session store for resume builder
@@ -128,21 +129,7 @@ export class ResumeBuilderController {
       // Parse raw input into text and stash in session for the stream step
       const resumeText = await this.resumeBuilderService.parseResume(file, text)
       resumeSessions.set(sessionId, {
-        resume: {
-          personalInfo: {
-            name: '',
-            email: undefined,
-            phone: undefined,
-            location: undefined,
-            linkedin: '',
-            website: '',
-          },
-          summary: '',
-          workExperience: [],
-          education: [],
-          skills: [],
-          certifications: [],
-        },
+        resume: createEmptyResume(),
         gaps: [],
         extractionNotes: '',
         updatedAt: Date.now(),
