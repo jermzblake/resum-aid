@@ -1,5 +1,5 @@
 import { OllamaProvider } from '../providers/ollama-provider'
-import { LLMService } from '../services/llm-service'
+import { LLMService } from '../services/llm/llm.service'
 import { LLMFactory } from '../providers/llm-factory'
 
 async function main() {
