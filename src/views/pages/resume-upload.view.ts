@@ -14,23 +14,32 @@ export const ResumeUploadView = () => html`
         </div>
       </div>
 
-      <!-- Tab toggle for upload vs paste -->
-      <div class="mb-6 flex border-b border-gray-200">
-        <button
-          type="button"
-          class="px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none"
-          onclick="document.getElementById('upload-section').classList.remove('hidden'); document.getElementById('paste-section').classList.add('hidden'); this.classList.add('border-b-2', 'border-blue-600', 'text-blue-600'); document.querySelector('[data-paste-tab]').classList.remove('border-b-2', 'border-blue-600', 'text-blue-600'); document.querySelector('[data-paste-tab]').classList.add('text-gray-600');"
-        >
-          📤 Upload File
-        </button>
-        <button
-          type="button"
-          data-paste-tab
-          class="px-4 py-2 font-medium text-gray-600 focus:outline-none"
-          onclick="document.getElementById('paste-section').classList.remove('hidden'); document.getElementById('upload-section').classList.add('hidden'); this.classList.add('border-b-2', 'border-blue-600', 'text-blue-600'); document.querySelector(':not([data-paste-tab])').classList.remove('border-b-2', 'border-blue-600'); document.querySelector(':not([data-paste-tab])').classList.add('text-gray-600');"
-        >
-          📝 Paste Text
-        </button>
+      <!-- Tab toggle for upload vs paste (radio-driven) -->
+      <div class="mb-6 border-b border-gray-200">
+        <div class="sr-only" id="resume-tab-controls">Choose input method</div>
+        <div class="flex" role="tablist" aria-labelledby="resume-tab-controls">
+          <input id="tab-upload" type="radio" name="resume-tab" class="sr-only" checked />
+          <label
+            for="tab-upload"
+            role="tab"
+            aria-controls="upload-section"
+            aria-selected="true"
+            class="px-4 py-2 font-medium cursor-pointer text-blue-600 border-b-2 border-blue-600"
+          >
+            📤 Upload File
+          </label>
+
+          <input id="tab-paste" type="radio" name="resume-tab" class="sr-only" />
+          <label
+            for="tab-paste"
+            role="tab"
+            aria-controls="paste-section"
+            aria-selected="false"
+            class="px-4 py-2 font-medium cursor-pointer text-gray-600"
+          >
+            📝 Paste Text
+          </label>
+        </div>
       </div>
 
       <!-- Upload Section -->
@@ -101,6 +110,39 @@ export const ResumeUploadView = () => html`
   </div>
 
   <script>
+    ;(function () {
+      const uploadTab = document.getElementById('tab-upload')
+      const pasteTab = document.getElementById('tab-paste')
+      const uploadSection = document.getElementById('upload-section')
+      const pasteSection = document.getElementById('paste-section')
+      const labels = Array.from(document.querySelectorAll('[role="tab"]'))
+
+      function setActive(isUpload) {
+        if (isUpload) {
+          uploadSection.classList.remove('hidden')
+          pasteSection.classList.add('hidden')
+        } else {
+          pasteSection.classList.remove('hidden')
+          uploadSection.classList.add('hidden')
+        }
+        labels.forEach((label) => {
+          const controls = label.getAttribute('aria-controls')
+          const active = (isUpload && controls === 'upload-section') || (!isUpload && controls === 'paste-section')
+          label.setAttribute('aria-selected', String(active))
+          label.classList.toggle('text-blue-600', active)
+          label.classList.toggle('border-b-2', active)
+          label.classList.toggle('border-blue-600', active)
+          label.classList.toggle('text-gray-600', !active)
+        })
+      }
+
+      uploadTab?.addEventListener('change', () => setActive(true))
+      pasteTab?.addEventListener('change', () => setActive(false))
+
+      // Initialize state on load
+      setActive(uploadTab?.checked ?? true)
+    })()
+
     // No global SSE handlers; loader fragment wires SSE declaratively via sse-swap blocks
   </script>
 `
