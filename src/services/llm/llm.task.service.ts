@@ -1,7 +1,9 @@
 import { LLMService } from './llm.service'
-import type { LLMTask, BulletAnalysis } from './llm.interface'
-import type { ResumeInput, GeneratedResume, JobMatchResult } from '@/types'
-import { matchJobPrompt, analyzeBulletPrompt } from './prompts'
+import type { LLMTask } from './llm.interface'
+import type { JobMatchResult, ExtractionResult, WorkExperience } from '@/types'
+import { matchJobPrompt, analyzeBulletPrompt, extractResumePrompt, generateBulletsPrompt } from './prompts'
+import { LLMExtractionResponseSchema, BulletsResponseSchema } from '@/types'
+import { parseJsonResponse } from './response-utils'
 
 export class LLMTaskService implements LLMTask {
   private llmService: LLMService
@@ -25,5 +27,39 @@ export class LLMTaskService implements LLMTask {
     const userPrompt = analyzeBulletPrompt(bullet)
     const response = await this.llmService.promptStream(userPrompt, systemPrompt)
     return response
+  }
+
+  async extractResumeData(resumeText: string): Promise<ExtractionResult> {
+    const systemPrompt = `You are an expert resume parser and analyzer. Extract and structure resume information accurately, identifying gaps and suggesting improvements. Be thorough in extraction but realistic about what's present in the text.`
+    const userPrompt = extractResumePrompt(resumeText)
+    const response = await this.llmService.prompt(userPrompt, systemPrompt)
+
+    const validated = parseJsonResponse(response, LLMExtractionResponseSchema, {
+      stripCodeFences: true,
+      requireJsonOnly: true,
+    })
+
+    return {
+      resume: validated.resume,
+      gaps: validated.gaps,
+      extractionNotes: validated.extractionNotes,
+    }
+  }
+
+  async generateAchievementBullets(context: WorkExperience & { company: string }): Promise<string[]> {
+    const systemPrompt = `You are an expert resume writer specializing in creating impactful, quantifiable achievement statements using the XYZ formula (Accomplished X as measured by Y by doing Z). Your bullets are ATS-friendly and compelling to recruiters.`
+
+    const userPrompt = generateBulletsPrompt({
+      title: context.title,
+      company: context.company,
+      description: context.achievements.join('; ') || 'General job responsibilities',
+    })
+
+    const response = await this.llmService.prompt(userPrompt, systemPrompt)
+    const validated = parseJsonResponse(response, BulletsResponseSchema, {
+      stripCodeFences: true,
+      requireJsonOnly: true,
+    })
+    return validated.bullets
   }
 }

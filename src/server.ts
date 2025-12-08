@@ -11,6 +11,9 @@ import { JobMatcherController } from '@/controllers/job-matcher.controller'
 import { JobMatcherService } from '@/services/job-matcher-service'
 import { BulletAnalyzerController } from '@/controllers/bullet-analyzer.controller'
 import { BulletAnalyzerService } from '@/services/bullet-analyzer.service'
+import { ResumeBuilderController } from '@/controllers/resume-builder.controller'
+import { ResumeBuilderService } from '@/services/resume-builder.service'
+import { PDFGeneratorService } from '@/services/pdf-generator.service'
 
 export const createApp = () => {
   const app = new Hono()
@@ -22,15 +25,20 @@ export const createApp = () => {
   const llmTaskService = new LLMTaskService(llmService)
   const jobMatcherService = new JobMatcherService(llmTaskService)
   const bulletAnalyzerService = new BulletAnalyzerService(llmTaskService)
+  const pdfGeneratorService = new PDFGeneratorService()
+  const resumeBuilderService = new ResumeBuilderService(llmTaskService, {
+    pdfGeneratorService,
+  })
 
   const jobMatcherController = new JobMatcherController(jobMatcherService)
   const bulletAnalyzerController = new BulletAnalyzerController(bulletAnalyzerService)
+  const resumeBuilderController = new ResumeBuilderController(resumeBuilderService, pdfGeneratorService)
 
   // Mount routes
   registerLandingRoute(app)
   registerJobMatchRoute(app, jobMatcherController)
   registerBulletAnalyzerRoute(app, bulletAnalyzerController)
-  registerResumeBuilderRoute(app)
+  registerResumeBuilderRoute(app, resumeBuilderController)
 
   return app
 }
