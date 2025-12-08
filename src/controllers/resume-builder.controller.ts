@@ -6,6 +6,7 @@ import type { ParsedResume } from '@/types'
 import { ErrorComponent } from '@/views/components/error.component'
 import { ParseLoaderFragment } from '@/views/fragments/parse-loader.fragment'
 import { ResumePreviewDataView } from '@/views/pages/resume-preview-data.view'
+import { randomUUID } from 'crypto'
 
 /**
  * Simple in-memory session store for resume builder
@@ -29,7 +30,7 @@ const SESSION_TTL = 24 * 60 * 60 * 1000 // Session TTL: 24 hours
  * Generate a unique session ID
  */
 function generateSessionId(): string {
-  return `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
+  return `session_${Date.now()}_${randomUUID().replace(/-/g, '')}`
 }
 
 /**
