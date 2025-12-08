@@ -1,8 +1,7 @@
 import { LLMTaskService } from './llm/llm.task.service'
 import type { ParsedResume, ExtractionResult, ResumeGap, WorkExperience } from '@/types'
 import { ParsedResumeSchema } from '@/types'
-import mammoth from 'mammoth'
-import { extractText, getDocumentProxy } from 'unpdf'
+import { extractResumeText } from '@/utils/resume-text'
 import type { PDFGeneratorService } from './pdf-generator.service'
 
 export interface ResumeBuilderServiceOptions {
@@ -20,31 +19,11 @@ export class ResumeBuilderService {
 
   async parseResume(file?: File, text?: string): Promise<string> {
     if (file) {
-      return this.extractResumeText(file)
+      return extractResumeText(file)
     } else if (text && text.trim().length > 0) {
       return text.trim()
     } else {
       throw new Error('Resume file or text is required')
-    }
-  }
-
-  private async extractResumeText(file: File): Promise<string> {
-    try {
-      if (file.type === 'application/pdf') {
-        const buffer = await file.arrayBuffer()
-        const pdfDoc = await getDocumentProxy(new Uint8Array(buffer))
-        const { text } = await extractText(pdfDoc, { mergePages: true })
-        return text
-      } else if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-        const arrayBuffer = await file.arrayBuffer()
-        const result = await mammoth.extractRawText({ buffer: Buffer.from(arrayBuffer) })
-        return result.value
-      } else {
-        throw new Error('Unsupported file type. Please upload a PDF or DOCX file.')
-      }
-    } catch (error) {
-      console.error('Error extracting resume text:', error)
-      throw new Error('Failed to extract text from the resume file.')
     }
   }
 
