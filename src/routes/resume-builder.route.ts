@@ -3,6 +3,7 @@ import { ResumeUploadView } from '@/views/pages/resume-upload.view'
 import { ResumeGapsView } from '@/views/pages/resume-gaps.view'
 import { ResumePreviewView } from '@/views/pages/resume-preview.view'
 import { MainLayout } from '@/views/layouts/main.layout'
+import { handleResumeGapsState, renderErrorHtml } from '@/routes/resume-route-helpers'
 import type { ResumeBuilderController } from '@/controllers/resume-builder.controller'
 
 export const registerResumeBuilderRoute = (app: Hono, controller: ResumeBuilderController) => {
@@ -31,62 +32,12 @@ export const registerResumeBuilderRoute = (app: Hono, controller: ResumeBuilderC
 
   // Step 2: Get gaps interview view
   app.get('/api/resume/gaps', async (c) => {
-    try {
-      const state = await controller.getResumeState(c)
-      const stateData = state.json ? await state.json() : state
-
-      if (stateData.error) {
-        return c.html(
-          `<div class="p-4 border border-red-400 bg-red-50 rounded-lg text-red-700">
-            <strong>Error:</strong> ${stateData.error}. Please <a href="/tools/resume-builder" class="underline">start over</a>.
-          </div>`,
-          404,
-        )
-      }
-
-      const gapsViewHtml = await ResumeGapsView({
-        resume: stateData.resume,
-        gaps: stateData.gaps,
-        extractionNotes: stateData.extractionNotes,
-      })
-      return c.html(gapsViewHtml)
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error'
-      return c.html(
-        `<div class="p-4 border border-red-400 bg-red-50 rounded-lg text-red-700"><strong>Error:</strong> ${message}</div>`,
-        500,
-      )
-    }
+    return handleResumeGapsState(c, controller)
   })
 
   // Get current session state
   app.get('/api/resume/state', async (c) => {
-    try {
-      const state = await controller.getResumeState(c)
-      const stateData = state.json ? await state.json() : state
-
-      if (stateData.error) {
-        return c.html(
-          `<div class="p-4 border border-red-400 bg-red-50 rounded-lg text-red-700">
-            <strong>Error:</strong> ${stateData.error}. Please <a href="/tools/resume-builder" class="underline">start over</a>.
-          </div>`,
-          404,
-        )
-      }
-
-      const gapsViewHtml = await ResumeGapsView({
-        resume: stateData.resume,
-        gaps: stateData.gaps,
-        extractionNotes: stateData.extractionNotes,
-      })
-      return c.html(gapsViewHtml)
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error'
-      return c.html(
-        `<div class="p-4 border border-red-400 bg-red-50 rounded-lg text-red-700"><strong>Error:</strong> ${message}</div>`,
-        500,
-      )
-    }
+    return handleResumeGapsState(c, controller)
   })
 
   // Update resume with user edits
@@ -107,10 +58,7 @@ export const registerResumeBuilderRoute = (app: Hono, controller: ResumeBuilderC
       return c.html(previewViewHtml)
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error'
-      return c.html(
-        `<div class="p-4 border border-red-400 bg-red-50 rounded-lg text-red-700"><strong>Error:</strong> ${message}</div>`,
-        500,
-      )
+      return c.html(renderErrorHtml(message), 500)
     }
   })
 
