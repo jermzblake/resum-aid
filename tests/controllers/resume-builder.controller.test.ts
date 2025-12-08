@@ -163,9 +163,13 @@ describe('ResumeBuilderController', () => {
 
     const dlCtx = new MockContext('POST', '/api/resume/download', undefined, sessionCookie)
     const res: any = await controller.downloadPDF(dlCtx as any)
-    expect(res.type).toBe('binary')
+    expect(res.status).toBe(200)
     expect(res.headers['Content-Type']).toBe('application/pdf')
-    expect(String(res.headers['Content-Disposition'])).toContain('resume.pdf')
+    const cd = String(res.headers['Content-Disposition'] || '')
+    expect(cd.startsWith('attachment;')).toBe(true)
+    expect(cd).toMatch(/filename="[^"\r\n]+"/)
+    expect(cd).toMatch(/filename\*=UTF-8''[A-Za-z0-9%._-]+$/)
+    expect(cd).not.toMatch(/[\r\n]/)
     expect((res.body as Uint8Array).length).toBeGreaterThan(0)
 
     // After download, session should be cleared

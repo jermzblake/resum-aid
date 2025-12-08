@@ -343,12 +343,13 @@ export class ResumeBuilderController {
 
       const pdfBuffer = await this.resumeBuilderService.generatePDF(session.resume)
 
-      // Set response headers for PDF download
-      ctx.header('Content-Type', 'application/pdf')
-      ctx.header(
-        'Content-Disposition',
-        `attachment; filename="${session.resume.personalInfo.name || 'resume'}_resume.pdf"`,
+      // Set response headers for PDF download with sanitized filename
+      const { contentType, contentDisposition } = (await import('@/utils/http')).getSafeDownloadHeaders(
+        session.resume.personalInfo.name || 'resume',
+        '.pdf',
       )
+      ctx.header('Content-Type', contentType)
+      ctx.header('Content-Disposition', contentDisposition)
 
       // Clear session after download
       clearResumeSession(sessionId)
