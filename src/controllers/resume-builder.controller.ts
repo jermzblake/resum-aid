@@ -47,7 +47,10 @@ function getSessionId(c: Context): string {
   }
 
   // Set response cookie
-  c.header('Set-Cookie', `resumeSessionId=${sessionId}; Path=/; Max-Age=${SESSION_TTL / 1000}; HttpOnly; SameSite=Lax`)
+  c.header(
+    'Set-Cookie',
+    `resumeSessionId=${sessionId}; Path=/; Max-Age=${SESSION_TTL / 1000}; HttpOnly; SameSite=Lax ${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`,
+  )
 
   return sessionId
 }
