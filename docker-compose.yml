@@ -12,7 +12,7 @@ services:
       - OLLAMA_API_KEY=${OLLAMA_API_KEY}
       - OLLAMA_MODEL=${OLLAMA_MODEL:-gpt-oss:120b-cloud}
       - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
-      # Provide when using OpenAI
+      # Uncomment when using OpenAI and set LLM_PROVIDER=openai above
       # - OPENAI_API_KEY=${OPENAI_API_KEY}
     ports:
       - "4000:4000"
