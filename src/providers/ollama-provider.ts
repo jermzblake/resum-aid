@@ -9,7 +9,7 @@ export class OllamaProvider implements LLMProvider {
     this.client = apiKey
       ? new Ollama({
           host,
-          headers: apiKey ? { Authorization: `Bearer ${apiKey}` } : undefined,
+          headers: { Authorization: `Bearer ${apiKey}` },
         })
       : ollama
   }
