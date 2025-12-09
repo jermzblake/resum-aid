@@ -1,11 +1,21 @@
-import ollama from 'ollama'
+import ollama, { Ollama } from 'ollama'
 import type { LLMProvider, LLMChatRequest, LLMChatResponse } from '../services/llm/llm.service'
 
 export class OllamaProvider implements LLMProvider {
-  constructor(private model: string = process.env.OLLAMA_MODEL || 'gpt-oss:120b-cloud') {}
+  private client: Ollama
+  constructor(private model: string = process.env.OLLAMA_MODEL || 'gpt-oss:120b-cloud') {
+    const host = process.env.OLLAMA_HOST || 'http://ollama:11434'
+    const apiKey = process.env.OLLAMA_API_KEY
+    this.client = apiKey
+      ? new Ollama({
+          host,
+          headers: { Authorization: `Bearer ${apiKey}` },
+        })
+      : ollama
+  }
 
   async chat(request: LLMChatRequest): Promise<LLMChatResponse> {
-    const response = await ollama.chat({
+    const response = await this.client.chat({
       model: this.model,
       messages: request.messages,
       options: {
@@ -21,7 +31,7 @@ export class OllamaProvider implements LLMProvider {
   }
 
   async *chatStream(request: LLMChatRequest): AsyncGenerator<string, void, unknown> {
-    const response = await ollama.chat({
+    const response = await this.client.chat({
       model: this.model,
       messages: request.messages,
       stream: true,
@@ -37,7 +47,7 @@ export class OllamaProvider implements LLMProvider {
   }
 
   async embed(text: string): Promise<number[][]> {
-    const response = await ollama.embed({
+    const response = await this.client.embed({
       model: this.model,
       input: text,
     })

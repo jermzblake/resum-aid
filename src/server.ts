@@ -21,7 +21,7 @@ export const createApp = () => {
   app.use('/*', serveStatic({ root: './public' }))
 
   // Dependencies
-  const llmService: LLMService = LLMFactory.createOllama()
+  const llmService: LLMService = LLMFactory.createFromEnv()
   const llmTaskService = new LLMTaskService(llmService)
   const jobMatcherService = new JobMatcherService(llmTaskService)
   const bulletAnalyzerService = new BulletAnalyzerService(llmTaskService)

@@ -1,10 +1,6 @@
-import { OllamaProvider } from '../providers/ollama-provider'
-import { LLMService } from '../services/llm-service'
 import { LLMFactory } from '../providers/llm-factory'
 
 async function main() {
-  // const provider = new OllamaProvider('gpt-oss:120b-cloud')
-  // const llm = new LLMService(provider)
   const llm = LLMFactory.createOllama('gpt-oss:120b-cloud')
 
   // Non-streaming chat
