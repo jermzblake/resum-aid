@@ -20,6 +20,4 @@ ENV OLLAMA_MODEL=gpt-oss:120b-cloud
 ENV OPENAI_MODEL=gpt-4o-mini
 COPY --from=build /app /app
 EXPOSE 4000
-HEALTHCHECK --interval=10s --timeout=3s --start-period=10s --retries=5 \
-  CMD curl -fsS http://localhost:4000/ping || exit 1
 CMD ["bun", "run", "src/index.ts"]
