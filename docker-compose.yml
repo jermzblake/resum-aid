@@ -8,7 +8,7 @@ services:
     environment:
       - PORT=4000
       - LLM_PROVIDER=ollama
-      - OLLAMA_HOST=${OLLAMA_HOST:-https://api.ollama.com}
+      - OLLAMA_HOST=${OLLAMA_HOST:-https://ollama.com}
       - OLLAMA_API_KEY=${OLLAMA_API_KEY}
       - OLLAMA_MODEL=${OLLAMA_MODEL:-gpt-oss:120b-cloud}
       - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
