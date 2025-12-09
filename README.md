@@ -50,7 +50,7 @@ bun run dev
 
 - `LLM_PROVIDER`: `ollama` | `openai` (default: `ollama`)
 - `PORT`: web server port (default `4000`)
-- `OLLAMA_HOST`: e.g., `https://api.ollama.com` (cloud) or `http://localhost:11434` (local)
+- `OLLAMA_HOST`: e.g., `https://ollama.com` (cloud) or `http://localhost:11434` (local)
 - `OLLAMA_MODEL`: default `gpt-oss:120b-cloud`
 - `OLLAMA_API_KEY`: required for Ollama Cloud
 - `OPENAI_API_KEY`: required when `LLM_PROVIDER=openai`
