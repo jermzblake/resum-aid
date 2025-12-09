@@ -29,6 +29,18 @@ export class LLMFactory {
     }
   }
 
+  static createFromEnv(): LLMService {
+    const provider = (process.env.LLM_PROVIDER || 'ollama').toLowerCase() as LLMProviderType
+    if (provider === 'openai') {
+      const apiKey = process.env.OPENAI_API_KEY || ''
+      if (!apiKey) {
+        throw new Error('OPENAI_API_KEY is required when LLM_PROVIDER=openai')
+      }
+      return this.create({ provider: 'openai' })
+    }
+    return this.create({ provider: 'ollama' })
+  }
+
   static createOllama(model?: string): LLMService {
     return this.create({ provider: 'ollama', model })
   }
