@@ -22,7 +22,7 @@ describe('JobMatcherService Integration', () => {
     } as unknown as LLMTaskService
     jobMatcherService = new JobMatcherService(mockLLMTaskService)
     // Mock extractResumeText for all tests
-    jobMatcherService['extractResumeText'] = async (file: File) => {
+    ;(jobMatcherService as any)['extractResumeText'] = async (file: File) => {
       if (
         file.type === 'application/pdf' ||
         file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
