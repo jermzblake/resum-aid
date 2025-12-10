@@ -16,7 +16,9 @@ vi.mock('mammoth', () => ({
 }))
 
 function makeFile(type: string, data: Uint8Array = new Uint8Array([1, 2, 3])): File {
-  return new File([data], 'test.' + (type === 'application/pdf' ? 'pdf' : 'docx'), { type })
+  //@ts-ignore
+  const blob = new Blob([data], { type })
+  return new File([blob], 'test.' + (type === 'application/pdf' ? 'pdf' : 'docx'), { type })
 }
 
 describe('extractResumeText', () => {
