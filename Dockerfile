@@ -20,6 +20,7 @@ ENV PORT=4000
 # ENV OLLAMA_HOST=https://ollama.com
 # ENV OPENAI_MODEL=gpt-4o-mini
 COPY --from=build /app /app
+RUN chown -R bun:bun /app
 EXPOSE 4000
 USER bun
 CMD ["bun", "run", "src/index.ts"]
