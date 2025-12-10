@@ -17,6 +17,7 @@ ENV NODE_ENV=production
 ENV PORT=4000
 ENV LLM_PROVIDER=ollama
 ENV OLLAMA_MODEL=gpt-oss:120b-cloud
+ENV OLLAMA_HOST=https://ollama.com
 ENV OPENAI_MODEL=gpt-4o-mini
 COPY --from=build /app /app
 EXPOSE 4000
