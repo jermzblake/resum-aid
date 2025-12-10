@@ -30,3 +30,4 @@ docs/
 **/*.test.*
 **/*.spec.*
 **/tests/
+node_modules/
