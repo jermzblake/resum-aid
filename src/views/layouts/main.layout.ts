@@ -12,7 +12,7 @@ export const MainLayout = (content: string, activeTab: string = 'home') => html`
       <script src="https://unpkg.com/htmx.org@1.9.10"></script>
       <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/sse.js"></script>
     </head>
-    <body class="bg-gray-50 min-h-screen">
+    <body class="bg-[#F0FDF4] min-h-screen">
       <div class="max-w-6xl mx-auto">
         <!-- Header -->
         <header class="bg-white shadow-sm border-b border-gray-200">
@@ -52,11 +52,11 @@ export const MainLayout = (content: string, activeTab: string = 'home') => html`
             (tab === 'builder' && a.href.endsWith('/tools/resume-builder')) ||
             (tab === 'analyzer' && a.href.endsWith('/tools/bullet-analyzer'))
 
-          a.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600', 'bg-blue-50')
+          a.classList.remove('text-[#15803D]', 'border-b-2', 'border-[#15803D]', 'bg-[#E6F4F1]')
           a.classList.remove('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-50')
 
           if (isActive) {
-            a.classList.add('text-blue-600', 'border-b-2', 'border-blue-600', 'bg-blue-50')
+            a.classList.add('text-[#15803D]', 'border-b-2', 'border-[#15803D]', 'bg-[#E6F4F1]')
           } else {
             a.classList.add('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-50')
           }

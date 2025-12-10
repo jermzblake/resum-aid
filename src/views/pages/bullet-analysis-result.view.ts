@@ -34,10 +34,10 @@ export const BulletAnalysisLoadingBox = (bullet: string) => {
       id="stream-loader"
       hx-ext="sse"
       sse-connect="/api/stream-bullet-analysis?bullet=${encodeURIComponent(bullet)}"
-      class="p-4 border rounded-lg border-blue-500 bg-gray-50"
+      class="p-4 border rounded-lg border-[#15803D] bg-gray-50"
     >
       <div class="flex items-center gap-2 mb-4 border-b pb-2">
-        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-[#15803D] rounded-full animate-pulse"></div>
         <span class="uppercase tracking-widest text-xs font-bold">AI Analyzing Bullet....</span>
       </div>
 

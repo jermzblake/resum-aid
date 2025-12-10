@@ -14,8 +14,8 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
         <h2 class="text-3xl font-bold text-gray-900">Review & Fill Gaps</h2>
         <p class="text-gray-600 mt-2">Step 2 of 3: Review your resume and fill in missing information</p>
         <div class="mt-4 flex gap-2">
-          <div class="flex-1 h-1 bg-blue-600 rounded"></div>
-          <div class="flex-1 h-1 bg-blue-600 rounded"></div>
+          <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
+          <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
           <div class="flex-1 h-1 bg-gray-300 rounded"></div>
         </div>
       </div>
@@ -32,8 +32,8 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
       <!-- Gaps Alert -->
       ${gaps.length > 0
         ? html`
-            <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <p class="text-sm text-blue-900">
+            <div class="mb-6 p-4 bg-[#E6F4F1] border border-emerald-200 rounded-lg">
+              <p class="text-sm text-[#166534]">
                 <strong>🔍 Found ${gaps.length} gap${gaps.length !== 1 ? 's' : ''}:</strong><br />
                 ${gaps.map(
                   (g) => html`<div class="mt-1">• <strong>${g.field}</strong> in ${g.section} - ${g.message}</div>`,
@@ -62,7 +62,7 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
                 name="personalInfo.name"
                 value="${resume.personalInfo.name}"
                 required
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D]"
               />
             </div>
 
@@ -73,7 +73,7 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
                   type="email"
                   name="personalInfo.email"
                   value="${resume.personalInfo.email || ''}"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D]"
                 />
               </div>
               <div>
@@ -82,7 +82,7 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
                   type="tel"
                   name="personalInfo.phone"
                   value="${resume.personalInfo.phone || ''}"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D]"
                 />
               </div>
             </div>
@@ -95,7 +95,7 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
                   name="personalInfo.location"
                   value="${resume.personalInfo.location || ''}"
                   placeholder="City, State"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D]"
                 />
               </div>
               <div>
@@ -105,7 +105,7 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
                   name="personalInfo.linkedin"
                   value="${resume.personalInfo.linkedin || ''}"
                   placeholder="https://linkedin.com/in/yourprofile"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D]"
                 />
               </div>
             </div>
@@ -118,7 +118,7 @@ export const ResumeGapsView = ({ resume, gaps, extractionNotes }: ResumeGapsView
           <textarea
             name="summary"
             rows="4"
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] mt-4"
             placeholder="A brief professional summary or headline (2-3 sentences)"
           >
 ${resume.summary || ''}</textarea
@@ -140,14 +140,14 @@ ${resume.summary || ''}</textarea
                             name="workExperience[${idx}].company"
                             value="${job.company}"
                             placeholder="Company"
-                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] text-sm"
                           />
                           <input
                             type="text"
                             name="workExperience[${idx}].title"
                             value="${job.title}"
                             placeholder="Job Title"
-                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] text-sm"
                           />
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -156,28 +156,28 @@ ${resume.summary || ''}</textarea
                             name="workExperience[${idx}].startDate"
                             value="${job.startDate}"
                             placeholder="Start Date (e.g., 2020-01)"
-                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] text-sm"
                           />
                           <input
                             type="text"
                             name="workExperience[${idx}].endDate"
                             value="${job.endDate || ''}"
                             placeholder="End Date (leave empty if current)"
-                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] text-sm"
                           />
                           <input
                             type="number"
                             name="workExperience[${idx}].teamSize"
                             value="${job.teamSize || ''}"
                             placeholder="Team Size (optional)"
-                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] text-sm"
                           />
                         </div>
                         <textarea
                           name="workExperience[${idx}].achievements"
                           rows="3"
                           placeholder="Add achievements (one per line)"
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] text-sm"
                         >
 ${job.achievements.join('\n')}</textarea
                         >
@@ -197,7 +197,7 @@ ${job.achievements.join('\n')}</textarea
                 <textarea
                   name="skills"
                   rows="3"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-4 text-sm"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] mt-4 text-sm"
                   placeholder="Skills separated by commas"
                 >
 ${resume.skills.join(', ')}</textarea
@@ -221,7 +221,7 @@ ${resume.skills.join(', ')}</textarea
             hx-get="/api/resume/preview"
             hx-target="#tool-content"
             hx-swap="innerHTML"
-            class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            class="flex-1 px-6 py-3 bg-[#15803D] text-white rounded-lg font-medium hover:bg-[#166534] transition-colors"
           >
             Continue to Preview →
           </button>

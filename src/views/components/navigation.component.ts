@@ -2,7 +2,7 @@ import { html } from 'hono/html'
 
 const NavLink = (href: string, label: string, icon: string, active: boolean) => {
   const activeClasses = active
-    ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
+    ? 'text-[#15803D] border-b-2 border-[#15803D] bg-[#E6F4F1]'
     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
 
   return html`

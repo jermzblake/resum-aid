@@ -5,10 +5,10 @@ export const ParseLoaderFragment = (streamPath = '/api/resume/parse-stream') => 
     id="parse-loader"
     hx-ext="sse"
     sse-connect="${streamPath}"
-    class="p-4 border rounded-lg border-blue-500 bg-blue-50"
+    class="p-4 border rounded-lg border-[#15803D] bg-[#E6F4F1]"
   >
     <div class="flex items-center gap-2 mb-4">
-      <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+      <div class="w-2 h-2 bg-[#15803D] rounded-full animate-pulse"></div>
       <span class="uppercase tracking-widest text-xs font-bold">Parsing Resume...</span>
     </div>
     <div sse-swap="progress" hx-swap="beforeend" class="font-mono text-sm text-gray-700 whitespace-pre-wrap"></div>

@@ -22,7 +22,7 @@ export const JobMatcherView = () => html`
             name="resume"
             accept=".pdf,.docx"
             required
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D]"
           />
           <p class="text-sm text-gray-500 mt-1">Accepted formats: PDF, DOCX</p>
         </div>
@@ -33,14 +33,14 @@ export const JobMatcherView = () => html`
             name="job_description"
             rows="8"
             required
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D]"
             placeholder="Paste the job description here..."
           ></textarea>
         </div>
 
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+          class="w-full bg-[#15803D] text-white font-medium py-3 px-6 rounded-lg hover:bg-[#166534] transition-colors"
         >
           Analyze Match
         </button>

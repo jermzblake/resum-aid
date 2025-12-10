@@ -22,14 +22,14 @@ export const BulletAnalyzerView = () => html`
             name="bullet"
             rows="3"
             required
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus-visible:outline-none focus:ring-[#15803D] focus:border-[#15803D] font-mono text-sm"
             placeholder="• Led a team of 5 engineers to develop a new feature that increased user engagement by 15% within the first quarter."
           ></textarea>
         </div>
 
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+          class="w-full bg-[#15803D] text-white font-medium py-3 px-6 rounded-lg hover:bg-[#166534] transition-colors"
         >
           Analyze Bullet
         </button>
