@@ -7,9 +7,9 @@ export const ResumePreviewView = (previewHtml: string) => html`
         <h2 class="text-3xl font-bold text-gray-900">Preview & Download</h2>
         <p class="text-gray-600 mt-2">Step 3 of 3: Review your resume and download as PDF</p>
         <div class="mt-4 flex gap-2">
-          <div class="flex-1 h-1 bg-blue-600 rounded"></div>
-          <div class="flex-1 h-1 bg-blue-600 rounded"></div>
-          <div class="flex-1 h-1 bg-blue-600 rounded"></div>
+          <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
+          <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
+          <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
         </div>
       </div>
 
@@ -41,8 +41,8 @@ export const ResumePreviewView = (previewHtml: string) => html`
       </div>
 
       <!-- Tips -->
-      <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-        <p class="text-sm text-blue-900">
+      <div class="mt-8 p-4 bg-[#E6F4F1] border border-emerald-200 rounded-lg">
+        <p class="text-sm text-[#166534]">
           <strong>💡 Tip:</strong> Your resume has been optimized for ATS (Applicant Tracking Systems). Make sure all
           information is accurate before downloading!
         </p>

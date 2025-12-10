@@ -21,10 +21,10 @@ export const ResumePreviewDataView = (resume: ParsedResume) => {
         ${personal.phone ? html`<span>📞 ${personal.phone}</span>` : ''}
         ${personal.location ? html`<span>📍 ${personal.location}</span>` : ''}
         ${personal.linkedin
-          ? html`<a class="text-blue-600 underline" href="${personal.linkedin}" target="_blank">LinkedIn</a>`
+          ? html`<a class="text-[#15803D] underline" href="${personal.linkedin}" target="_blank">LinkedIn</a>`
           : ''}
         ${personal.website
-          ? html`<a class="text-blue-600 underline" href="${personal.website}" target="_blank">Website</a>`
+          ? html`<a class="text-[#15803D] underline" href="${personal.website}" target="_blank">Website</a>`
           : ''}
       </div>
     </div>
@@ -104,9 +104,9 @@ export const ResumePreviewDataView = (resume: ParsedResume) => {
           <h2 class="text-3xl font-bold text-gray-900">Preview & Download</h2>
           <p class="text-gray-600 mt-2">Step 3 of 3: Review your resume and download as PDF</p>
           <div class="mt-4 flex gap-2">
-            <div class="flex-1 h-1 bg-blue-600 rounded"></div>
-            <div class="flex-1 h-1 bg-blue-600 rounded"></div>
-            <div class="flex-1 h-1 bg-blue-600 rounded"></div>
+            <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
+            <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
+            <div class="flex-1 h-1 bg-[#15803D] rounded"></div>
           </div>
         </div>
 
@@ -150,8 +150,8 @@ export const ResumePreviewDataView = (resume: ParsedResume) => {
           ${Section({ title: 'Certifications', children: certsBlock })}
         </div>
 
-        <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p class="text-sm text-blue-900">
+        <div class="mt-8 p-4 bg-[#E6F4F1] border border-emerald-200 rounded-lg">
+          <p class="text-sm text-[#166534]">
             <strong>💡 Tip:</strong> Your resume has been optimized for ATS (Applicant Tracking Systems). Make sure all
             information is accurate before downloading!
           </p>
