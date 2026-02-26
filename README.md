@@ -14,12 +14,6 @@ While this repository serves as the foundational logic, the [Live Production Sit
 - **CRM Integration:** Full integration with **HubSpot** for automated lead management and user tracking.
 - **Observability:** Centralized logging for real-time monitoring of AI generations and system health.
 
-## Live Demo
-
-Production (Fly.io): https://resum-aid.fly.dev/
-
-> If the demo is idle, visiting the URL wakes it.
-
 ## Features (Original POC)
 
 - Bullet Analyzer: Evaluate and improve resume bullets with streaming feedback.
