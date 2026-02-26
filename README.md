@@ -1,6 +1,18 @@
-## Resum-Aid
+# Resum-Aid (POC)
 
 An AI-powered resume enhancement tool that analyzes bullet points, matches roles, and assembles tailored resumes with exportable previews. Built with Bun and Hono, styled with Tailwind CSS, and integrates LLMs via Ollama Cloud or OpenAI.
+
+> **Note:** This repository contains the Proof-of-Concept (POC) and MVP code for the Resume-Aid project. The project has since evolved into a production-grade Career Suite with a private codebase.
+
+## 🚀 Evolution to Production
+
+While this repository serves as the foundational logic, the [Live Production Site](https://tools.jupiterhr.ca) has been expanded with enterprise-level features including:
+
+- **LinkedIn Profile Builder:** A new core module that pivoted the tool from resume-only to a full career optimization suite.
+- **Production Safety:** Implemented fail-fast process-level error handlers (`unhandledRejection`, `uncaughtException`) to ensure high uptime and self-healing through Docker orchestration.
+- **Data Integrity:** Added strict file validation and sanitization for secure PDF/Docx processing.
+- **CRM Integration:** Full integration with **HubSpot** for automated lead management and user tracking.
+- **Observability:** Centralized logging for real-time monitoring of AI generations and system health.
 
 ## Live Demo
 
@@ -8,12 +20,24 @@ Production (Fly.io): https://resum-aid.fly.dev/
 
 > If the demo is idle, visiting the URL wakes it.
 
-## Features
+## Features (Original POC)
 
 - Bullet Analyzer: Evaluate and improve resume bullets with streaming feedback.
 - Job Matcher: Compare resume content against job descriptions for fit.
 - Resume Builder: Upload, identify gaps, edit, preview, and download PDF.
 - Health checks: `GET /ping` for liveness.
+
+## Tech Stack
+
+- Runtime: Bun (TypeScript)
+- Web framework: Hono (server-side routes + views)
+- UI/Styles: Tailwind CSS (CLI), minimal custom components
+- LLM integration: Ollama Cloud or OpenAI (env-configurable)
+- Data & parsing: Mammoth (DOCX → text), unpdf (PDF parsing), jsPDF (PDF generation)
+- HTTP & validation: Axios, Zod
+- Dev & tooling: Docker Compose, Prettier, Concurrently
+- Deployment: Fly.io (`fly.toml`)
+- Testing: Bun test
 
 ## Screens/Pages
 
@@ -67,18 +91,6 @@ docker compose up -d
 - Core: `LLM_PROVIDER` (`ollama` | `openai`, default `ollama`), `PORT` (default `4000`)
 - Ollama: `OLLAMA_HOST`, `OLLAMA_MODEL` (default `gpt-oss:120b-cloud`), `OLLAMA_API_KEY` (Cloud only)
 - OpenAI: `OPENAI_API_KEY`, `OPENAI_MODEL` (default `gpt-4o-mini`)
-
-## Tech Stack
-
-- Runtime: Bun (TypeScript)
-- Web framework: Hono (server-side routes + views)
-- UI/Styles: Tailwind CSS (CLI), minimal custom components
-- LLM integration: Ollama Cloud or OpenAI (env-configurable)
-- Data & parsing: Mammoth (DOCX → text), unpdf (PDF parsing), jsPDF (PDF generation)
-- HTTP & validation: Axios, Zod
-- Dev & tooling: Docker Compose, Prettier, Concurrently
-- Deployment: Fly.io (`fly.toml`)
-- Testing: Bun test
 
 ## API Endpoints
 
